@@ -1,0 +1,22 @@
+--- mailbox.lua	2010-01-23 15:37:50.000000000 +0100
++++ mailbox.new.lua	2010-09-01 16:50:09.000000000 +0200
+@@ -1239,5 +1239,19 @@
+     return ifcore.idle(self._account._imap)
+ end
+ 
++function Mailbox.append_plain_message(self, mplain, mflags, mdate)
++    if (self._account._login_user(self._account) ~= true) then
++        return false
++    end
++
++    if (not mplain or mplain:len() == 0) then
++        return false
++    end
++
++    return ifcore.append(self._account._imap, self._mailbox,
++                    mplain, mflags, mdate)
++
++end
++
+ Mailbox._mt.__index = function () end
+ Mailbox._mt.__newindex = function () end
